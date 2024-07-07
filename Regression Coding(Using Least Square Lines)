@@ -1,0 +1,51 @@
+library(UsingR)
+father.son
+library(ggplot2)
+
+#serio 
+head(father.son)
+x <- father.son$fheight
+y <- father.son$sheight
+group <- 1:1078
+dat <- data.frame(x, y, group)
+#ser
+y<- x + 3
+means <- data.frame(x, y, group)
+head(means)
+tail(means)
+
+#mad
+x <- c(50, 80)
+y <- x + 3
+line <- data.frame(x, y)
+#d
+d <- rbind(dat,means )
+d
+ggplot() + geom_point(data = dat, aes(x = x, y = y)) + 
+  geom_point(data = means, aes(x = x, y = y), colour = "Blue") +
+  geom_line(data = line, aes(x = x, y = y )) +
+  geom_line(data = d, aes(x = x, y = y, group = group))
+
+#linear model 
+lm(y~x, data = dat)
+
+slope <- 0.5141 
+intercept <- 33.8866 
+x <- c(57, 78)
+y <- slope * x + intercept
+line <- data.frame(x, y)
+line
+
+x <- means$x
+y <- slope * x + intercept
+means <- data.frame(x, y, group)
+means
+
+d <- rbind(dat , means)
+d
+
+
+ggplot() + geom_point(data = dat, aes(x = x, y = y)) + 
+  geom_point(data = means, aes(x = x, y = y), colour = "Blue") +
+  geom_line(data = line, aes(x = x, y = y )) +
+  geom_line(data = d, aes(x = x, y = y, group = group))
